@@ -2,7 +2,7 @@ function checkStrLength(inputStr, count) {
   return inputStr.length <= count;
 }
 
-function isPalindrom(input) {
+function isPalindrome(input) {
   let inputWithoutSpaces = input.replaceAll(" ", "").toLowerCase();
 
   const length = inputWithoutSpaces.length;
