@@ -3,7 +3,7 @@ function checkStrLength(inputStr, count) {
 }
 
 function isPalindrome(input) {
-  let inputWithoutSpaces = input.replaceAll(" ", "").toLowerCase();
+  const inputWithoutSpaces = input.replaceAll(" ", "").toLowerCase();
 
   const length = inputWithoutSpaces.length;
   for (let i = 0; i < Math.round(length / 2); i++) {
@@ -16,9 +16,7 @@ function isPalindrome(input) {
 
 const notNumericRegexp = RegExp("\\D", "gm");
 function parseNumber(input) {
-  let onlyDigits = input.toString().replaceAll(notNumericRegexp, "");
+  const onlyDigits = input.toString().replaceAll(notNumericRegexp, "");
 
-  result = parseInt(onlyDigits);
-
-  return result;
+  return parseInt(onlyDigits, 10);
 }
