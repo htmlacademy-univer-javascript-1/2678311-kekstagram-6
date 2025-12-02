@@ -19,8 +19,8 @@ const getComments = () => {
   for (let i = 0; i < commentCount; i++) {
     commentArray.push({
       id: commentIdCounter++,
-      avatar: `img/avatar-${getRandomInteger(1, 7)}.svg`,
-      message: getMessage(getRandomInteger(1, 3)),
+      avatar: `img/avatar-${getRandomInteger(1, consts.MAX_NAMBER_AVATAR)}.svg`,
+      message: getMessage(getRandomInteger(1, consts.MAX_MESSAGE_COUNT)),
       name: consts.NAMES[getRandomInteger(1, consts.NAMES.length)],
     });
   }
@@ -32,7 +32,7 @@ const getItem = function (id) {
     id: id,
     url: `photos/${id}.jpg`,
     description: consts.DESCRIPTIONS[getRandomInteger(0, consts.DESCRIPTIONS.length)],
-    likes: getRandomInteger(15, 201),
+    likes: getRandomInteger(consts.MIN_LIKE_COUNT, consts.MAX_LIKE_COUNT),
     comments: getComments(id, getRandomInteger(0, consts.MAX_COMMENTS_COUNT + 1)),
   };
 };
