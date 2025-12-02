@@ -32,8 +32,8 @@ const getItem = function (id) {
     id: id,
     url: `photos/${id}.jpg`,
     description: consts.DESCRIPTIONS[getRandomInteger(0, consts.DESCRIPTIONS.length)],
-    likes: getRandomInteger(consts.MIN_LIKE_COUNT, consts.MAX_LIKE_COUNT + 1),
-    comments: getComments(id, getRandomInteger(0, consts.MAX_COMMENTS_COUNT + 1)),
+    likes: getRandomInteger(consts.MIN_LIKE_COUNT, consts.MAX_LIKE_COUNT),
+    comments: getComments(id, getRandomInteger(0, consts.MAX_COMMENTS_COUNT)),
   };
 };
 
