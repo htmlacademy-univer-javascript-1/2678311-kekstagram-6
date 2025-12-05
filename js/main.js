@@ -1,4 +1,2 @@
-import { getItemsPhotos } from './data.js';
-
-console.log(getItemsPhotos());
+import './draw-picture.js';
 
