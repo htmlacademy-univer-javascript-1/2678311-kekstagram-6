@@ -1,0 +1,2 @@
+import './draw-picture.js';
+
