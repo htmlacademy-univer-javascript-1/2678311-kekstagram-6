@@ -1,2 +1,1 @@
 import './draw-picture.js';
-
