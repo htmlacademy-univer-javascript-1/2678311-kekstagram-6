@@ -28,6 +28,8 @@ clearComments();
 
 pictureElements.forEach((element) => {
   element.addEventListener('click', () => {
+    bigPictureCommentsLoader.classList.add('hidden');
+    bigPictureCommentsCount.classList.add('hidden');
     const picture = pictures.find(({ url }) => element.querySelector('.picture__img').src.endsWith(url));
 
     bigPicture.querySelector('.big-picture__img img').src = picture.url;
@@ -41,11 +43,6 @@ pictureElements.forEach((element) => {
 
     document.querySelector('body').classList.add('modal-open');
   });
-});
-
-bigPictureCommentsLoader.addEventListener('click', () => {
-  bigPictureCommentsLoader.classList.add('hidden');
-  bigPictureCommentsCount.classList.add('hidden');
 });
 
 const closeBigPicture = () => {
