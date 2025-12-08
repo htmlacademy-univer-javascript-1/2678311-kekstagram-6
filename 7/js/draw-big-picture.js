@@ -45,6 +45,7 @@ pictureElements.forEach((element) => {
   });
 });
 
+
 const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
   clearComments();
@@ -53,9 +54,11 @@ const closeBigPicture = () => {
   bigPictureCommentsCount.classList.remove('hidden');
 };
 
+
 bigPictureClose.addEventListener('click', () => {
   closeBigPicture();
 });
+
 
 document.addEventListener('keydown', (evt) => {
   if (evt.key === 'Escape') {
