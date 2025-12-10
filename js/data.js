@@ -4,7 +4,7 @@ import * as consts from './consts.js';
 const getMessage = function (count) {
   let message = '';
   for (let i = 0; i < count; i++) {
-    message += `${consts.MESSAGES[getRandomInteger(1, consts.MESSAGES.length)]} `;
+    message += `${consts.MESSAGES[getRandomInteger(0, consts.MESSAGES.length - 1)]} `;
   }
 
   return message.trim();

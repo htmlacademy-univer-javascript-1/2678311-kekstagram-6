@@ -37,9 +37,9 @@ const PHOTOS_COUNT = 25;
 
 const MAX_COMMENTS_COUNT = 30;
 
-const MAX_NAMBER_AVATAR = 7;
+const MAX_NAMBER_AVATAR = 6;
 
-const MAX_MESSAGE_COUNT = 3;
+const MAX_MESSAGE_COUNT = 2;
 
 const MIN_LIKE_COUNT = 15;
 
