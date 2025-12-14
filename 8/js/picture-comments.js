@@ -26,6 +26,9 @@ const setTotalCommentCount = (count) => {
   else {
     setCurrentCommentCount(5);
   }
+  if (totalCommentCount === 0) {
+    bigPictureCommentsCount.innerHTML = `<span class="comments-count">${totalCommentCount}</span> комментариев`;
+  }
 
   bigPicture.querySelector('.comments-count').textContent = totalCommentCount;
 };
