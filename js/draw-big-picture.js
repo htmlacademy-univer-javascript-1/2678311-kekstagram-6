@@ -1,40 +1,22 @@
-import './draw-picture.js';
+import { clearComments, setTotalCommentCount, addPartOfComments, bigPictureCommentsLoader, onLoaderClick } from './picture-comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureClose = document.querySelector('#picture-cancel');
-const bigPictureCommentsLoader = document.querySelector('.comments-loader');
-const bigPictureCommentsCount = document.querySelector('.social__comment-count');
-const commentTemplate = document.querySelector('.social__comment');
-const commentListElement = document.querySelector('.social__comments');
-const commentListFragment = document.createDocumentFragment();
+let currentPicture = null;
 
-const createComment = ({ avatar, message, name }) => {
-  const commentElement = commentTemplate.cloneNode(true);
-  const commentElementPicture = commentElement.querySelector('.social__picture');
-  commentElementPicture.src = avatar;
-  commentElementPicture.alt = name;
-  commentElement.querySelector('.social__text').textContent = message;
-  commentListFragment.appendChild(commentElement);
-};
-
-const clearComments = () => {
-  commentListElement.querySelectorAll('.social__comment').forEach((element) => {
-    element.remove();
-  });
-};
+clearComments();
 
 const onPictureClick = (picture) => {
-  bigPictureCommentsLoader.classList.add('hidden');
-  bigPictureCommentsCount.classList.add('hidden');
-
+  currentPicture = picture;
   bigPicture.querySelector('.big-picture__img img').src = picture.url;
   bigPicture.querySelector('.big-picture__img img').alt = picture.name;
   bigPicture.querySelector('.likes-count').textContent = picture.likes;
-  bigPicture.querySelector('.comments-count').textContent = picture.comments.length;
+  setTotalCommentCount(picture.comments.length);
 
-  picture.comments.forEach(createComment);
-  commentListElement.appendChild(commentListFragment);
+  addPartOfComments();
   bigPicture.classList.remove('hidden');
+
+  bigPictureCommentsLoader.addEventListener('click', onLoaderClick);
 
   document.querySelector('body').classList.add('modal-open');
 
@@ -43,14 +25,14 @@ const onPictureClick = (picture) => {
 };
 
 const closeBigPicture = () => {
+  currentPicture = null;
   bigPicture.classList.add('hidden');
   clearComments();
   document.querySelector('body').classList.remove('modal-open');
-  bigPictureCommentsLoader.classList.remove('hidden');
-  bigPictureCommentsCount.classList.remove('hidden');
 
   document.removeEventListener('keydown', closeByEscape);
   bigPictureClose.removeEventListener('click', closeByButton);
+  bigPictureClose.removeEventListener('click', onLoaderClick);
 };
 
 function closeByEscape(evt) {
@@ -64,4 +46,4 @@ function closeByButton() {
   closeBigPicture();
 }
 
-export { onPictureClick };
+export { onPictureClick, bigPicture, currentPicture };

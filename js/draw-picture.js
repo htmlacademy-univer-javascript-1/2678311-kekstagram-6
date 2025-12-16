@@ -27,4 +27,5 @@ pictureListElement.appendChild(pictureListFragment);
 
 export {
   pictures,
+  createPicture
 };
