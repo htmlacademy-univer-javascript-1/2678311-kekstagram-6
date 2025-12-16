@@ -15,30 +15,32 @@ const openUploadForm = () => {
   pictureFormClose.addEventListener('click', closeByButton);
 };
 
+const clearError = () => {
+  uploadForm.querySelectorAll('.form__error').forEach((element) => {
+    element.remove();
+  });
+};
+
+
 const closeUploadForm = () => {
   uploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
 
-  uploadInput.value = '';
-
-  if (uploadForm) {
-    uploadForm.reset();
-  }
-
   uploadForm.removeEventListener('submit', onSubmit);
   document.removeEventListener('keydown', closeByEscape);
+  clearError();
 };
+
 
 uploadInput.addEventListener('change', () => {
   openUploadForm();
 });
 
 function closeByEscape(evt) {
-  if (evt.key === 'Escape' && evt.target.tagName !== 'INPUT') {
+  if (evt.key === 'Escape' && evt.target.tagName !== 'INPUT' && evt.target.tagName !== 'TEXTAREA') {
     evt.preventDefault();
     closeUploadForm();
   }
-
 }
 
 function closeByButton() {
@@ -49,6 +51,11 @@ function onSubmit(evt) {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (!isValid) {
+    document.querySelectorAll('.form__error').forEach((element) => {
+      element.style.display = 'block';
+      element.style.marginBottom = '20px';
+    });
+
     return false;
   }
 }

@@ -1,3 +1,5 @@
+import { MAX_LENGTH_DESCRIPTION, MAX_COUNT_HASHTAG } from './consts.js';
+
 const uploadForm = document.querySelector('.img-upload__form');
 const hashtagInput = uploadForm.querySelector('[name ="hashtags"]');
 const descriptionInput = uploadForm.querySelector('[name ="description"]');
@@ -12,14 +14,18 @@ const pristine = new Pristine(uploadForm, {
   errorTextClass: 'form__error'
 }, false);
 
+function getTagsFromString(value) {
+  return value.toLowerCase().trim().split(/\s+/).map((tag) => tag.trim());
+}
+
 function validateHashtagCount(value) {
   if (!value.trim()) {
     return true;
   }
 
-  const tags = value.trim().split(/\s+/).map((tag) => tag.trim());
+  const tags = getTagsFromString(value);
 
-  return tags.length <= 5;
+  return tags.length <= MAX_COUNT_HASHTAG;
 }
 
 function validateHashtagsUnique(value) {
@@ -27,7 +33,7 @@ function validateHashtagsUnique(value) {
     return true;
   }
 
-  const tags = value.toLowerCase().trim().split(/\s+/).map((tag) => tag.trim());
+  const tags = getTagsFromString(value);
   const existTags = new Set();
 
   for (const tag of tags) {
@@ -44,7 +50,7 @@ function validateHashtags(value) {
     return true;
   }
 
-  const tags = value.trim().split(/\s+/).map((tag) => tag.trim());
+  const tags = getTagsFromString(value);
 
   for (const tag of tags) {
     if (!hashtagRegexp.test(tag)) {
@@ -54,12 +60,11 @@ function validateHashtags(value) {
   return true;
 }
 
-
+pristine.addValidator(hashtagInput, validateHashtags, 'Хэштеги невалидны!');
 pristine.addValidator(hashtagInput, validateHashtagCount, 'Хэштегов не может быть больше 5!');
 pristine.addValidator(hashtagInput, validateHashtagsUnique, 'Хэштеги должны быть уникальны!');
-pristine.addValidator(hashtagInput, validateHashtags, 'Хэштеги невалидны!');
 
-const validateDescription = (value) => value.length <= 140;
+const validateDescription = (value) => value.length <= MAX_LENGTH_DESCRIPTION;
 
 pristine.addValidator(descriptionInput, validateDescription, 'Длина комментария не может составлять больше 140 символов!');
 
