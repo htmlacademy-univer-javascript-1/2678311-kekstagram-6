@@ -12,7 +12,7 @@ const pristine = new Pristine(uploadForm, {
   errorTextParent: 'img-upload__field-wrapper',
   errorTextTag: 'span',
   errorTextClass: 'form__error'
-});
+}, false);
 
 function getTagsFromString(value) {
   return value.toLowerCase().trim().split(/\s+/).map((tag) => tag.trim());

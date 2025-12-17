@@ -48,9 +48,9 @@ function closeByButton() {
 }
 
 function onSubmit(evt) {
-  evt.preventDefault();
   const isValid = pristine.validate();
   if (!isValid) {
+    evt.preventDefault();
     document.querySelectorAll('.form__error').forEach((element) => {
       element.style.display = 'block';
       element.style.marginBottom = '20px';
