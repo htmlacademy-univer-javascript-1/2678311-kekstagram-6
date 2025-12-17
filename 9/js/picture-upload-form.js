@@ -1,4 +1,4 @@
-import { uploadForm, pristine } from './validate.js';
+import { uploadForm, pristine, hashtagInput, descriptionInput } from './validate.js';
 
 const uploadInput = document.querySelector('.img-upload__input');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
@@ -37,9 +37,12 @@ uploadInput.addEventListener('change', () => {
 });
 
 function closeByEscape(evt) {
-  if (evt.key === 'Escape' && evt.target.tagName !== 'INPUT' && evt.target.tagName !== 'TEXTAREA') {
-    evt.preventDefault();
-    closeUploadForm();
+  if (evt.key === 'Escape') {
+    const activeElement = document.activeElement.name;
+    if (activeElement !== 'hashtags' && activeElement !== 'description') {
+      evt.preventDefault();
+      closeUploadForm();
+    }
   }
 }
 
