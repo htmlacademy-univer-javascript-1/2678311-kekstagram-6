@@ -61,11 +61,11 @@ function validateHashtags(value) {
 }
 
 pristine.addValidator(hashtagInput, validateHashtags, 'Хэштеги невалидны!', 3);
-pristine.addValidator(hashtagInput, validateHashtagCount, 'Хэштегов не может быть больше 5!', 2);
+pristine.addValidator(hashtagInput, validateHashtagCount, `Хэштегов не может быть больше ${MAX_COUNT_HASHTAG}!`, 2);
 pristine.addValidator(hashtagInput, validateHashtagsUnique, 'Хэштеги должны быть уникальны!', 1);
 
 const validateDescription = (value) => value.length <= MAX_LENGTH_DESCRIPTION;
 
-pristine.addValidator(descriptionInput, validateDescription, 'Длина комментария не может составлять больше 140 символов!');
+pristine.addValidator(descriptionInput, validateDescription, `Длина комментария не может составлять больше ${MAX_LENGTH_DESCRIPTION} символов!`);
 
 export { hashtagInput, descriptionInput, uploadForm, pristine };
