@@ -38,8 +38,9 @@ uploadInput.addEventListener('change', () => {
 
 function closeByEscape(evt) {
   if (evt.key === 'Escape') {
-    const activeElement = document.activeElement.name;
-    if (activeElement !== 'hashtags' && activeElement !== 'description') {
+    const activeElement = document.activeElement;
+
+    if (activeElement !== hashtagInput && activeElement !== descriptionInput) {
       evt.preventDefault();
       closeUploadForm();
     }
