@@ -1,4 +1,5 @@
 import { bigPicture, currentPicture } from './draw-big-picture.js';
+import { MAX_COMMENTS_UPLOAD } from './consts.js';
 
 const bigPictureCommentsLoader = document.querySelector('.comments-loader');
 const bigPictureCommentsCount = document.querySelector('.social__comment-count');
@@ -20,11 +21,14 @@ const setCurrentCommentCount = (count) => {
 const setTotalCommentCount = (count) => {
   totalCommentCount = count;
   bigPictureCommentsLoader.classList.remove('hidden');
-  if (totalCommentCount < 5) {
+  if (totalCommentCount < MAX_COMMENTS_UPLOAD) {
     setCurrentCommentCount(totalCommentCount);
   }
   else {
-    setCurrentCommentCount(5);
+    setCurrentCommentCount(MAX_COMMENTS_UPLOAD);
+  }
+  if (totalCommentCount === 0) {
+    bigPictureCommentsCount.innerHTML = `<span class="comments-count">${totalCommentCount}</span> комментариев`;
   }
 
   bigPicture.querySelector('.comments-count').textContent = totalCommentCount;
@@ -58,7 +62,7 @@ const addPartOfComments = () => {
 };
 
 const onLoaderClick = () => {
-  setCurrentCommentCount(currentCommentCount + 5);
+  setCurrentCommentCount(currentCommentCount + MAX_COMMENTS_UPLOAD);
   addPartOfComments();
 };
 
