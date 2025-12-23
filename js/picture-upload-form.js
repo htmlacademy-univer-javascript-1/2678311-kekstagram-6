@@ -1,4 +1,7 @@
 import { uploadForm, pristine, hashtagInput, descriptionInput } from './validate.js';
+import { sendForm } from './api.js';
+import { showInteractiveError } from './message-error.js';
+
 
 const uploadInput = document.querySelector('.img-upload__input');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
@@ -15,12 +18,13 @@ const openUploadForm = () => {
   pictureFormClose.addEventListener('click', closeByButton);
 };
 
-const clearError = () => {
+const resetForm = () => {
   uploadForm.querySelectorAll('.form__error').forEach((element) => {
     element.remove();
   });
+  uploadForm.reset();
+  uploadInput.value = '';
 };
-
 
 const closeUploadForm = () => {
   uploadOverlay.classList.add('hidden');
@@ -28,9 +32,8 @@ const closeUploadForm = () => {
 
   uploadForm.removeEventListener('submit', onSubmit);
   document.removeEventListener('keydown', closeByEscape);
-  clearError();
+  resetForm();
 };
-
 
 uploadInput.addEventListener('change', () => {
   openUploadForm();
@@ -51,16 +54,45 @@ function closeByButton() {
   closeUploadForm();
 }
 
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Опубликовываю...'
+};
+
+const submitButton = uploadForm.querySelector('.img-upload__submit');
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
 function onSubmit(evt) {
+  evt.preventDefault();
   const isValid = pristine.validate();
   if (!isValid) {
-    evt.preventDefault();
     document.querySelectorAll('.form__error').forEach((element) => {
-      element.style.display = 'block';
-      element.style.marginBottom = '20px';
+      element.classList.add('form-validate-error');
     });
-
-    return false;
+  }
+  else {
+    blockSubmitButton();
+    sendForm()
+      .catch(
+        (err) => {
+          showInteractiveError(err.message);
+        }
+      )
+      .finally(() => {
+        closeUploadForm();
+        unblockSubmitButton();
+      });
   }
 }
+
+export { closeByButton };
 
