@@ -1,6 +1,6 @@
 import { uploadForm, pristine, hashtagInput, descriptionInput } from './validate.js';
 import { sendForm } from './api.js';
-import { showInteractiveError } from './message-error.js';
+import { showInteractiveError } from './modal.js';
 
 
 const uploadInput = document.querySelector('.img-upload__input');
@@ -18,6 +18,8 @@ const openUploadForm = () => {
   pictureFormClose.addEventListener('click', closeByButton);
 };
 
+const initValues = {};
+
 const resetForm = () => {
   uploadForm.querySelectorAll('.form__error').forEach((element) => {
     element.remove();
@@ -32,7 +34,6 @@ const closeUploadForm = () => {
 
   uploadForm.removeEventListener('submit', onSubmit);
   document.removeEventListener('keydown', closeByEscape);
-  resetForm();
 };
 
 uploadInput.addEventListener('change', () => {
@@ -46,12 +47,14 @@ function closeByEscape(evt) {
     if (activeElement !== hashtagInput && activeElement !== descriptionInput) {
       evt.preventDefault();
       closeUploadForm();
+      resetForm();
     }
   }
 }
 
 function closeByButton() {
   closeUploadForm();
+  resetForm();
 }
 
 const SubmitButtonText = {
@@ -78,21 +81,24 @@ function onSubmit(evt) {
     document.querySelectorAll('.form__error').forEach((element) => {
       element.classList.add('form-validate-error');
     });
+    return;
   }
-  else {
-    blockSubmitButton();
-    sendForm()
-      .catch(
-        (err) => {
-          showInteractiveError(err.message);
-        }
-      )
-      .finally(() => {
-        closeUploadForm();
-        unblockSubmitButton();
-      });
-  }
+  blockSubmitButton();
+  sendForm()
+    .then(() => {
+      resetForm();
+    })
+    .catch(
+      (err) => {
+        showInteractiveError(err.message);
+      }
+    )
+    .finally(() => {
+      closeUploadForm();
+      unblockSubmitButton();
+    });
 }
+
 
 export { closeByButton };
 
