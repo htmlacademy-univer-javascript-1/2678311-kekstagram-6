@@ -2,7 +2,9 @@ const errorTemplate = document.querySelector('#error').content.querySelector('.e
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 
 function createModal(template, className, onButtonClick) {
+  template.style.zIndex = 1500;
   const modalElement = template.cloneNode(true);
+  document.body.appendChild(modalElement);
 
   const button = modalElement.querySelector(`.${className}__button`);
   if (button) {
@@ -15,11 +17,13 @@ function createModal(template, className, onButtonClick) {
   function closeModal() {
     document.removeEventListener('keydown', onEscPress);
     document.removeEventListener('click', onOverlayClick);
-    button.removeEventListener('click', closeModal);
-
+    if (button) {
+      button.removeEventListener('click', closeModal);
+    }
     modalElement.remove();
-
-    onButtonClick();
+    if (typeof onButtonClick === 'function') {
+      onButtonClick();
+    }
   }
 
   function onEscPress(evt) {
@@ -30,7 +34,7 @@ function createModal(template, className, onButtonClick) {
   }
 
   function onOverlayClick(evt) {
-    if (evt.target === modalElement) {
+    if (evt.target === template) {
       closeModal();
     }
   }
