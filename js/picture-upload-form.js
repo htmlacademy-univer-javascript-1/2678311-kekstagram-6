@@ -18,8 +18,6 @@ const openUploadForm = () => {
   pictureFormClose.addEventListener('click', closeByButton);
 };
 
-const initValues = {};
-
 const resetForm = () => {
   uploadForm.querySelectorAll('.form__error').forEach((element) => {
     element.remove();
