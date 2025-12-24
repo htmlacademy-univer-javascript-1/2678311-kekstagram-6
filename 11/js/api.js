@@ -1,12 +1,12 @@
 import { uploadForm } from './validate.js';
-import { showSuccess } from './message-success.js';
+import { showSuccess } from './modal.js';
 
-const DATA_GET_URL = 'https://29.javascript.htmlacademy.pro/kekstagram/data';
+const DATA_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
 
 const errorGetText = 'Не удалось загрузить данные. Попробуйте обновить страницу';
 
 function getData() {
-  return fetch(DATA_GET_URL)
+  return fetch(`${DATA_URL}/data`)
     .then((response) => {
       if (!response.ok) {
         throw new Error(errorGetText);
@@ -17,13 +17,12 @@ function getData() {
 
 
 const errorPostText = 'Не удалось отправить форму. Попробуйте ещё раз';
-const DATA_POST_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
 
 function sendForm() {
   const formData = new FormData(uploadForm);
 
   return fetch(
-    DATA_POST_URL,
+    DATA_URL,
     {
       method: 'POST',
       body: formData
@@ -38,4 +37,4 @@ function sendForm() {
     });
 }
 
-export { getData, sendForm };
+export { getData, sendForm, errorGetText };

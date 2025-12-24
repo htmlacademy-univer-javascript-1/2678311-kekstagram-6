@@ -1,6 +1,6 @@
 import { onPictureClick } from './draw-big-picture.js';
 import { showAlert } from './alert.js';
-import { getData } from './api.js';
+import { getData, errorGetText } from './api.js';
 
 const pictureListElement = document.querySelector('.pictures');
 
@@ -30,8 +30,8 @@ const createPictures = (pictures) => {
 getData()
   .then(createPictures)
   .catch(
-    (err) => {
-      showAlert(err.message);
+    () => {
+      showAlert(errorGetText);
     }
   );
 
