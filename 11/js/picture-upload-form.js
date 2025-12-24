@@ -32,6 +32,7 @@ const closeUploadForm = () => {
 
   uploadForm.removeEventListener('submit', onSubmit);
   document.removeEventListener('keydown', closeByEscape);
+  pictureFormClose.removeEventListener('click', closeByButton);
 };
 
 uploadInput.addEventListener('change', () => {
@@ -85,6 +86,7 @@ function onSubmit(evt) {
   sendForm()
     .then(() => {
       resetForm();
+      closeUploadForm();
     })
     .catch(
       (err) => {
@@ -92,7 +94,6 @@ function onSubmit(evt) {
       }
     )
     .finally(() => {
-      closeUploadForm();
       unblockSubmitButton();
     });
 }

@@ -37,4 +37,4 @@ function sendForm() {
     });
 }
 
-export { getData, sendForm, errorGetText };
+export { getData, sendForm, errorGetText, errorPostText };
