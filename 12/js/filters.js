@@ -36,21 +36,15 @@ const filterRandomPictures = () => {
   return shuffled.slice(0, COUNT_RANDOM_PICTURES);
 };
 
-const onFilterButtonClick = (evt) => {
-  if (evt.target.classList.contains(activeButtonClassName)) {
-    return;
-  }
-
-  deactivateActiveFilter();
-  evt.target.classList.add(activeButtonClassName);
+const recreatePicturesByButtonId = (buttonId) => {
   let pictures = [];
-
-  switch (evt.target.id) {
+  switch (buttonId) {
     case filterRandomId:
       pictures = filterRandomPictures();
       break;
     case filterDiscussedId:
-      pictures = originalPictures.sort((a, b) => b.comments.length - a.comments.length);
+      pictures = [...originalPictures];
+      pictures.sort((a, b) => b.comments.length - a.comments.length);
       break;
     default:
       pictures = originalPictures;
@@ -60,14 +54,26 @@ const onFilterButtonClick = (evt) => {
   createPictures(pictures);
 };
 
-const debouncedOnFilterButtonClick = debounce(onFilterButtonClick);
+const debouncedRecreatePicturesByButtonId = debounce(recreatePicturesByButtonId);
+
+const onFilterButtonClick = (evt) => {
+  if (evt.target.classList.contains(activeButtonClassName)) {
+    return;
+  }
+
+  deactivateActiveFilter();
+  evt.target.classList.add(activeButtonClassName);
+
+  debouncedRecreatePicturesByButtonId(evt.target.id);
+};
+
 
 const openFilterForm = () => {
   imgFiltersElement.classList.remove('img-filters--inactive');
 
-  buttonfilter.addEventListener('click', debouncedOnFilterButtonClick);
-  buttonFilterRandom.addEventListener('click', debouncedOnFilterButtonClick);
-  buttonFilterDiscussed.addEventListener('click', debouncedOnFilterButtonClick);
+  buttonfilter.addEventListener('click', onFilterButtonClick);
+  buttonFilterRandom.addEventListener('click', onFilterButtonClick);
+  buttonFilterDiscussed.addEventListener('click', onFilterButtonClick);
 };
 
 export { openFilterForm };
