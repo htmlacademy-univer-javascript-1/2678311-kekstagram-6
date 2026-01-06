@@ -1,6 +1,7 @@
 import { createPictures, originalPictures, clearPictures } from './draw-picture.js';
 import { getRandomInteger } from './util.js';
 import { COUNT_RANDOM_PICTURES } from './consts.js';
+import { debounce } from './util.js';
 
 const imgFiltersElement = document.querySelector('.img-filters');
 const activeButtonClassName = 'img-filters__button--active';
@@ -10,16 +11,6 @@ const filterDiscussedId = 'filter-discussed';
 const buttonfilter = imgFiltersElement.querySelector(`#${filterDefaultId}`);
 const buttonFilterRandom = imgFiltersElement.querySelector(`#${filterRandomId}`);
 const buttonFilterDiscussed = imgFiltersElement.querySelector(`#${filterDiscussedId}`);
-
-function debounce(callback, timeoutDelay = 500) {
-  let timeoutId;
-
-  return (...rest) => {
-    clearTimeout(timeoutId);
-
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-  };
-}
 
 const deactivateActiveFilter = () => {
   imgFiltersElement.querySelector(`.${activeButtonClassName}`).classList.remove(activeButtonClassName);
