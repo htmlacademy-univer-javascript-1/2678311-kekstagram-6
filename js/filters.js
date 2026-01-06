@@ -1,6 +1,6 @@
 import { createPictures, originalPictures, clearPictures } from './draw-picture.js';
 import { getRandomInteger } from './util.js';
-import { COUNT_RANDOM_PICTURES, TIMEOUT_DELAY } from './consts.js';
+import { COUNT_RANDOM_PICTURES } from './consts.js';
 import { debounce } from './util.js';
 
 const imgFiltersElement = document.querySelector('.img-filters');
