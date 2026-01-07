@@ -1,6 +1,7 @@
 import { onPictureClick } from './draw-big-picture.js';
 import { showAlert } from './alert.js';
 import { getData, errorGetText } from './api.js';
+import { openFilterForm } from './filters.js';
 
 const pictureListElement = document.querySelector('.pictures');
 
@@ -27,11 +28,25 @@ const createPictures = (pictures) => {
   pictureListElement.appendChild(fragment);
 };
 
+let originalPictures = [];
+
+const clearPictures = () => {
+  pictureListElement.querySelectorAll('.picture').forEach((element) => {
+    element.remove();
+  });
+};
+
+
 getData()
-  .then(createPictures)
+  .then((data) => {
+    originalPictures = data;
+    createPictures(originalPictures);
+    openFilterForm();
+  })
   .catch(
     () => {
       showAlert(errorGetText);
     }
   );
 
+export { createPictures, originalPictures, clearPictures };
