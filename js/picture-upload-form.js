@@ -1,9 +1,8 @@
 import { uploadForm, pristine, hashtagInput, descriptionInput } from './validate.js';
 import { sendForm } from './api.js';
 import { showInteractiveError } from './modal.js';
+import { setFormPhoto, uploadInput } from './photo.js';
 
-
-const uploadInput = document.querySelector('.img-upload__input');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 const pictureFormClose = document.querySelector('.img-upload__cancel');
 const body = document.querySelector('body');
@@ -36,6 +35,7 @@ const closeUploadForm = () => {
 };
 
 uploadInput.addEventListener('change', () => {
+  setFormPhoto();
   openUploadForm();
 });
 
