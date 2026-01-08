@@ -35,8 +35,10 @@ const closeUploadForm = () => {
 };
 
 uploadInput.addEventListener('change', () => {
-  setFormPhoto();
-  openUploadForm();
+  const success = setFormPhoto();
+  if (success) {
+    openUploadForm();
+  }
 });
 
 function closeByEscape(evt) {

@@ -55,7 +55,7 @@ const COUNT_RANDOM_PICTURES = 10;
 
 const TIMEOUT_DELAY = 500;
 
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const FILE_TYPES = ['image/jpeg', 'image/png', 'image/jpg'];
 
 export {
   NAMES,
