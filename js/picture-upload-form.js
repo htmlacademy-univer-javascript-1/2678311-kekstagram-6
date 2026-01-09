@@ -1,11 +1,14 @@
 import { uploadForm, pristine, hashtagInput, descriptionInput } from './validate.js';
 import { sendForm } from './api.js';
-import { showInteractiveError } from './modal.js';
+import { showInteractiveError, isModalOpened } from './modal.js';
 import { setFormPhoto, uploadInput } from './photo.js';
+import { onSmallerButtonClick, onBiggerButtonClick, updateScale } from './picture-scale.js';
 
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 const pictureFormClose = document.querySelector('.img-upload__cancel');
 const body = document.querySelector('body');
+const scaleControlSmaller = document.querySelector('.scale__control--smaller');
+const scaleControlBigger = document.querySelector('.scale__control--bigger');
 
 const openUploadForm = () => {
   uploadOverlay.classList.remove('hidden');
@@ -15,6 +18,9 @@ const openUploadForm = () => {
 
   document.addEventListener('keydown', closeByEscape);
   pictureFormClose.addEventListener('click', closeByButton);
+
+  scaleControlSmaller.addEventListener('click', onSmallerButtonClick);
+  scaleControlBigger.addEventListener('click', onBiggerButtonClick);
 };
 
 const resetForm = () => {
@@ -23,6 +29,7 @@ const resetForm = () => {
   });
   uploadForm.reset();
   uploadInput.value = '';
+  updateScale(100);
 };
 
 const closeUploadForm = () => {
@@ -32,6 +39,9 @@ const closeUploadForm = () => {
   uploadForm.removeEventListener('submit', onSubmit);
   document.removeEventListener('keydown', closeByEscape);
   pictureFormClose.removeEventListener('click', closeByButton);
+
+  scaleControlSmaller.removeEventListener('click', onSmallerButtonClick);
+  scaleControlBigger.removeEventListener('click', onBiggerButtonClick);
 };
 
 uploadInput.addEventListener('change', () => {
@@ -42,11 +52,16 @@ uploadInput.addEventListener('change', () => {
 });
 
 function closeByEscape(evt) {
+  if (isModalOpened) {
+    return;
+  }
+
   if (evt.key === 'Escape') {
     const activeElement = document.activeElement;
 
     if (activeElement !== hashtagInput && activeElement !== descriptionInput) {
       evt.preventDefault();
+      evt.stopPropagation();
       closeUploadForm();
       resetForm();
     }

@@ -10,6 +10,7 @@ const onPictureClick = (picture) => {
   currentPicture = picture;
   bigPicture.querySelector('.big-picture__img img').src = picture.url;
   bigPicture.querySelector('.big-picture__img img').alt = picture.name;
+  bigPicture.querySelector('.social__caption').textContent = picture.description;
   bigPicture.querySelector('.likes-count').textContent = picture.likes;
   setTotalCommentCount(picture.comments.length);
 

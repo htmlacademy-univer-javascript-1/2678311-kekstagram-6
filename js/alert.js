@@ -3,6 +3,7 @@ import { ALERT_SHOW_TIME } from './consts.js';
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
 
+  alertContainer.classList.add('data-error');
   alertContainer.classList.add('alert');
 
   alertContainer.textContent = message;

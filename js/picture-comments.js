@@ -15,7 +15,7 @@ const setCurrentCommentCount = (count) => {
     currentCommentCount = totalCommentCount;
     bigPictureCommentsLoader.classList.add('hidden');
   }
-  bigPictureCommentsCount.innerHTML = `${currentCommentCount} из <span class="comments-count">${totalCommentCount}</span> комментариев`;
+  bigPictureCommentsCount.innerHTML = `<span class="social__comment-shown-count">${currentCommentCount}</span>  из <span class="comments-count social__comment-total-count">${totalCommentCount}</span> комментариев`;
 };
 
 const setTotalCommentCount = (count) => {

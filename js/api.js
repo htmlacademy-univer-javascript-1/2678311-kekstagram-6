@@ -2,11 +2,15 @@ import { uploadForm } from './validate.js';
 import { showSuccess } from './modal.js';
 
 const DATA_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
+const API_ROUTE = {
+  GET: `${DATA_URL}/data`,
+  POST: DATA_URL
+};
 
 const errorGetText = 'Не удалось загрузить данные. Попробуйте обновить страницу';
 
 function getData() {
-  return fetch(`${DATA_URL}/data`)
+  return fetch(API_ROUTE.GET)
     .then((response) => {
       if (!response.ok) {
         throw new Error(errorGetText);
@@ -22,7 +26,7 @@ function sendForm() {
   const formData = new FormData(uploadForm);
 
   return fetch(
-    DATA_URL,
+    API_ROUTE.POST,
     {
       method: 'POST',
       body: formData

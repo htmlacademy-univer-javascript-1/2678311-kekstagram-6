@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/nouislider.css" />
     <link rel="stylesheet" href="css/form.css" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.7.1/dist/nouislider.min.css" />
     <title>Кекстаграм</title>
   </head>
 
@@ -95,7 +96,7 @@
                       <input
                         type="text"
                         class="scale__control scale__control--value"
-                        value="55%"
+                        value="75%"
                         title="Image Scale"
                         name="scale"
                         readonly
@@ -305,7 +306,7 @@
 
             <!-- Комментарии к изображению -->
             <div class="social__comment-count">
-              5 из <span class="comments-count">125</span> комментариев
+              <span class="social__comment-shown-count">5</span> из <span class="comments-count social__comment-total-count">125</span> комментариев
             </div>
             <ul class="social__comments">
               <li class="social__comment">
@@ -458,6 +459,7 @@
       </div>
     </template>
 
+    <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.1/dist/nouislider.min.js"></script>
     <script src="./js/pristine.min.js" type="text/javascript"></script>
     <script src="./js/main.js" type="module"></script>
   </body>

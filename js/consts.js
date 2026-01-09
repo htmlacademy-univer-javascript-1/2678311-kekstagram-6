@@ -57,6 +57,11 @@ const TIMEOUT_DELAY = 500;
 
 const FILE_TYPES = ['image/jpeg', 'image/png', 'image/jpg'];
 
+const DEFAULT_SCALE = 100;
+const SCALE_STEP = 25;
+const MIN_SCALE = 25;
+const MAX_SCALE = 100;
+
 export {
   NAMES,
   MESSAGES,
@@ -73,6 +78,10 @@ export {
   ALERT_SHOW_TIME,
   COUNT_RANDOM_PICTURES,
   TIMEOUT_DELAY,
-  FILE_TYPES
+  FILE_TYPES,
+  DEFAULT_SCALE,
+  SCALE_STEP,
+  MIN_SCALE,
+  MAX_SCALE,
 };
 
